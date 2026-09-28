@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Delights - Artisan Cake Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #d4a574; --primary-dark: #b8864a; --secondary: #8b4513; --cream: #fdf6f0; --white: #ffffff; --text: #4a4a4a; --text-light: #777; --shadow: rgba(0,0,0,0.1); }
+        body { font-family: 'Poppins', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 20px var(--shadow); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--secondary); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; transition: color 0.3s; position: relative; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary); }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--cream) 0%, #f5e6d3 50%, var(--cream) 100%); position: relative; overflow: hidden; padding-top: 80px; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,165,116,0.2) 0%, transparent 70%); border-radius: 50%; }
+        .hero-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .hero-content h1 { font-size: 3.5rem; color: var(--secondary); margin-bottom: 1rem; line-height: 1.2; }
+        .hero-content h1 span { color: var(--primary); }
+        .hero-content p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 2rem; }
+        .btn { display: inline-block; padding: 1rem 2.5rem; background: var(--primary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s; border: none; cursor: pointer; font-size: 1rem; }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212,165,116,0.4); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); margin-left: 1rem; }
+        .btn-outline:hover { background: var(--primary); color: var(--white); }
+        .hero-image { position: relative; display: flex; justify-content: center; }
+        .hero-cake { width: 100%; max-width: 500px; height: 500px; border-radius: 50%; object-fit: cover; box-shadow: 0 20px 60px rgba(0,0,0,0.15); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        .floating-icon { position: absolute; font-size: 2rem; animation: floatIcon 4s ease-in-out infinite; opacity: 0.6; }
+        .floating-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 20%; right: 5%; animation-delay: 1s; }
+        .floating-icon:nth-child(3) { bottom: 20%; left: 5%; animation-delay: 2s; }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(10deg); } }
+        .about { padding: 6rem 5%; background: var(--white); }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { font-size: 2.5rem; color: var(--secondary); margin-bottom: 0.5rem; }
+        .section-header p { color: var(--text-light); font-size: 1.1rem; }
+        .about-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .about-card { text-align: center; padding: 2rem; border-radius: 20px; background: var(--cream); transition: transform 0.3s, box-shadow 0.3s; }
+        .about-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px var(--shadow); }
+        .about-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .about-card h3 { color: var(--secondary); margin-bottom: 0.5rem; font-size: 1.3rem; }
+        .products { padding: 6rem 5%; background: var(--cream); }
+        .products-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .product-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .product-image { width: 100%; height: 250px; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .product-image { transform: scale(1.05); }
+        .product-info { padding: 1.5rem; }
+        .product-info h3 { color: var(--secondary); margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .product-info p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; }
+        .price { font-size: 1.3rem; font-weight: 600; color: var(--primary); }
+        .add-to-cart { background: var(--primary); color: var(--white); border: none; padding: 0.5rem 1.2rem; border-radius: 25px; cursor: pointer; font-weight: 500; transition: background 0.3s; }
+        .add-to-cart:hover { background: var(--primary-dark); }
+        .testimonials { padding: 6rem 5%; background: var(--white); }
+        .testimonials-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .testimonial-card { background: var(--cream); padding: 2rem; border-radius: 20px; position: relative; }
+        .testimonial-card::before { content: '"'; font-size: 4rem; color: var(--primary); opacity: 0.3; position: absolute; top: 10px; left: 20px; font-family: 'Playfair Display', serif; }
+        .testimonial-text { font-style: italic; margin-bottom: 1rem; padding-top: 1rem; }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .author-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; font-size: 1.2rem; }
+        .author-info h4 { color: var(--secondary); font-size: 1rem; }
+        .author-info p { color: var(--text-light); font-size: 0.85rem; }
+        .stars { color: #ffc107; margin-bottom: 0.5rem; }
+        .contact { padding: 6rem 5%; background: linear-gradient(135deg, var(--cream) 0%, #f5e6d3 100%); }
+        .contact-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .contact-info h2 { font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem; }
+        .contact-info p { color: var(--text-light); margin-bottom: 2rem; }
+        .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .contact-icon { width: 50px; height: 50px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.2rem; }
+        .contact-detail div h4 { color: var(--secondary); font-size: 1rem; }
+        .contact-detail div p { color: var(--text-light); font-size: 0.9rem; margin: 0; }
+        .contact-form { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 40px var(--shadow); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 500; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-family: 'Poppins', sans-serif; transition: border-color 0.3s; font-size: 1rem; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { width: 100%; padding: 1rem; background: var(--primary); color: var(--white); border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+        .submit-btn:hover { background: var(--primary-dark); }
+        footer { background: var(--secondary); color: var(--white); padding: 3rem 5%; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem; }
+        .footer-logo span { color: var(--primary); }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary); }
+        .social-links { display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0; }
+        .social-links a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); text-decoration: none; transition: background 0.3s; }
+        .social-links a:hover { background: var(--primary); }
+        .copyright { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .toast { position: fixed; bottom: 30px; right: 30px; background: var(--secondary); color: var(--white); padding: 1rem 2rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateX(150%); transition: transform 0.4s ease; z-index: 2000; font-weight: 500; }
+        .toast.show { transform: translateX(0); }
+        @media (max-width: 900px) { .hero-container { grid-template-columns: 1fr; text-align: center; } .hero-content h1 { font-size: 2.5rem; } .hero-image { order: -1; } .hero-cake { max-width: 350px; height: 350px; } .contact-container { grid-template-columns: 1fr; } .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); flex-direction: column; padding: 1rem; box-shadow: 0 10px 20px var(--shadow); } .nav-links.active { display: flex; } .mobile-menu-btn { display: block; } }
+        @media (max-width: 600px) { .hero-content h1 { font-size: 2rem; } .btn-outline { margin-left: 0; margin-top: 1rem; } .section-header h2 { font-size: 1.8rem; } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">Sweet<span>Delights</span></a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#products">Our Cakes</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <section class="hero" id="home">
+        <div class="floating-icon">🎂</div>
+        <div class="floating-icon">🧁</div>
+        <div class="floating-icon">🍰</div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Handcrafted <span>Artisan</span> Cakes Made with Love</h1>
+                <p>From classic flavors to custom creations, we bake every cake with the finest ingredients and a sprinkle of joy. Perfect for birthdays, weddings, or just because!</p>
+                <div>
+                    <a href="#products" class="btn">Order Now</a>
+                    <a href="#contact" class="btn btn-outline">Custom Order</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop" alt="Beautiful Cake" class="hero-cake">
+            </div>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="section-header fade-in">
+            <h2>Why Choose Us</h2>
+            <p>We pour passion into every creation</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card fade-in">
+                <div class="about-icon">🌾</div>
+                <h3>Premium Ingredients</h3>
+                <p>We use only the finest organic flour, farm-fresh eggs, and real butter for unmatched quality and taste.</p>
+            </div>
+            <div class="about-card fade-in">
+                <div class="about-icon">✨</div>
+                <h3>Custom Designs</h3>
+                <p>From elegant wedding tiers to fun character cakes, we bring your vision to life with stunning detail.</p>
+            </div>
+            <div class="about-card fade-in">
+                <div class="about-icon">🚚</div>
+                <h3>Fresh Delivery</h3>
+                <p>Same-day delivery available! Your cake arrives fresh, beautiful, and ready to impress your guests.</p>
+            </div>
+            <div class="about-card fade-in">
+                <div class="about-icon">💝</div>
+                <h3>Made with Love</h3>
+                <p>Every cake is handcrafted by our expert bakers who treat each creation as a work of edible art.</p>
+            </div>
+        </div>
+    </section>
+    <section class="products" id="products">
+        <div class="section-header fade-in">
+            <h2>Our Signature Cakes</h2>
+            <p>Indulge in our most loved creations</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop" alt="Chocolate Fudge Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Chocolate Fudge Dream</h3>
+                    <p>Rich dark chocolate layers with silky ganache and chocolate curls</p>
+                    <div class="product-footer">
+                        <span class="price">$45</span>
+                        <button class="add-to-cart" onclick="addToCart('Chocolate Fudge Dream')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=300&fit=crop" alt="Strawberry Shortcake" class="product-image">
+                <div class="product-info">
+                    <h3>Strawberry Shortcake</h3>
+                    <p>Light sponge with fresh strawberries and whipped vanilla cream</p>
+                    <div class="product-footer">
+                        <span class="price">$38</span>
+                        <button class="add-to-cart" onclick="addToCart('Strawberry Shortcake')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&h=300&fit=crop" alt="Red Velvet Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Classic Red Velvet</h3>
+                    <p>Velvety red layers with tangy cream cheese frosting</p>
+                    <div class="product-footer">
+                        <span class="price">$42</span>
+                        <button class="add-to-cart" onclick="addToCart('Classic Red Velvet')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1519340333755-56e9c1d04579?w=400&h=300&fit=crop" alt="Wedding Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Elegant Wedding Tier</h3>
+                    <p>Three-tier masterpiece with fondant flowers and gold accents</p>
+                    <div class="product-footer">
+                        <span class="price">$180</span>
+                        <button class="add-to-cart" onclick="addToCart('Elegant Wedding Tier')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400&h=300&fit=crop" alt="Lemon Drizzle Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Lemon Drizzle Delight</h3>
+                    <p>Zesty lemon sponge with tangy glaze and candied lemon slices</p>
+                    <div class="product-footer">
+                        <span class="price">$35</span>
+                        <button class="add-to-cart" onclick="addToCart('Lemon Drizzle Delight')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in">
+                <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop" alt="Birthday Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Rainbow Birthday Blast</h3>
+                    <p>Colorful layers with buttercream and sprinkles for the perfect celebration</p>
+                    <div class="product-footer">
+                        <span class="price">$50</span>
+                        <button class="add-to-cart" onclick="addToCart('Rainbow Birthday Blast')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials" id="testimonials">
+        <div class="section-header fade-in">
+            <h2>What Our Customers Say</h2>
+            <p>Sweet words from sweet people</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">The chocolate fudge cake was absolutely divine! It was the highlight of my daughter's birthday party. Everyone asked where we got it from!</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">S</div>
+                    <div class="author-info">
+                        <h4>Sarah Mitchell</h4>
+                        <p>Birthday Celebration</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">Our wedding cake was a masterpiece! Not only did it look stunning, but it tasted incredible. Sweet Delights made our special day even more perfect.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">E</div>
+                    <div class="author-info">
+                        <h4>Emily & James</h4>
+                        <p>Wedding Ceremony</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">I've ordered from here three times now and each cake has been consistently amazing. The lemon drizzle is my absolute favorite!</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">M</div>
+                    <div class="author-info">
+                        <h4>Michael Torres</h4>
+                        <p>Regular Customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info fade-in">
+                <h2>Get In Touch</h2>
+                <p>Have a special request or want to place a custom order? We'd love to hear from you!</p>
+                <div class="contact-detail">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h4>Visit Us</h4>
+                        <p>123 Baker Street, Sweetville, CA 90210</p>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <h4>Call Us</h4>
+                        <p>(555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <h4>Email Us</h4>
+                        <p>santoshadhikaripremi@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon">🕐</div>
+                    <div>
+                        <h4>Opening Hours</h4>
+                        <p>Mon-Sat: 8AM - 8PM | Sun: 9AM - 6PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form fade-in">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="santoshadhikaripremi@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="(555) 000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" placeholder="Tell us about your dream cake..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Sweet<span>Delights</span></div>
+            <p>Baking happiness, one cake at a time.</p>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#products">Menu</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="social-links">
+                <a href="#" title="Facebook">f</a>
+                <a href="#" title="Instagram">📷</a>
+                <a href="#" title="Twitter">𝕏</a>
+                <a href="#" title="Pinterest">P</a>
+            </div>
+            <p class="copyright">© 2026 Sweet Delights Cake Store. All rights reserved.</p>
+        </div>
+    </footer>
+    <div class="toast" id="toast"></div>
+    <script>
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('navLinks').classList.remove('active'); } }); });
+        function addToCart(itemName) { const toast = document.getElementById('toast'); toast.textContent = itemName + ' added to cart! 🛒'; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3000); }
+        function handleSubmit(e) { e.preventDefault(); const toast = document.getElementById('toast'); toast.textContent = 'Message sent! We\'ll get back to you soon. 📧'; toast.classList.add('show'); e.target.reset(); setTimeout(() => toast.classList.remove('show'), 3000); }
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
