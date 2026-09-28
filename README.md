@@ -1,13 +1,13 @@
-# TiniDrop examples
+# Examples
 
-Small files you can upload to [tinidrop.com](https://tinidrop.com) to see a live link.
+Files you can drop onto [tinidrop.com](https://tinidrop.com).
 
-| Path | What to do |
+| File | |
 | --- | --- |
-| [`hello-site/`](hello-site/) | Upload the folder or ZIP it. TiniDrop serves `index.html`. |
+| [`sweetdelight.html`](sweetdelight.html) | Bakery site. Upload as a website (or zip a folder that contains it as `index.html`). Contact on the page: santoshadhikaripremi@gmail.com |
+| [`nda-mutual.pdf`](nda-mutual.pdf) | Mutual NDA. Disclosing party: Santosh Premi Adhikari (`santoshadhikaripremi@gmail.com`). Receiving party: `test-pro@tinidrop.com`. Sample for demos, not legal advice. |
 
 ```bash
-tinidrop deploy ./hello-site --slug hello
+tinidrop deploy ./sweetdelight.html --slug sweet-delights
+tinidrop deploy ./nda-mutual.pdf --slug nda
 ```
-
-More starting points: [TiniDrop/templates](https://github.com/TiniDrop/templates).
